@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "713177968828",
+    "firebase_url": "https://sriramsampush.firebaseio.com",
+    "project_id": "sriramsampush",
+    "storage_bucket": "sriramsampush.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713177968828:android:7fb6188106f24fa7",
+        "android_client_info": {
+          "package_name": "com.ionicframework.srirampushmessage710941"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713177968828-2gko52l9ghe10ac4loo4fbvanp94e3pt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgsruTO_8m_KpSvz_oz6jYd92lRa-Mx8o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713177968828:android:6e56fb271753aa8b",
+        "android_client_info": {
+          "package_name": "com.ionicframework.instantmessaging194243"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713177968828-2gko52l9ghe10ac4loo4fbvanp94e3pt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgsruTO_8m_KpSvz_oz6jYd92lRa-Mx8o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
