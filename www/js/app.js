@@ -6,23 +6,22 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers'])
 
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform,$rootScope) {
         $ionicPlatform.ready(function () {
-
             if (typeof (FCMPlugin) !== "undefined") {
                 FCMPlugin.onTokenRefresh(function (t) {
                     console.log("Use this token for sending device specific messages\nToken: " + t);
-                    alert("t " + t);
+//                    alert("t " + t);
                     console.log("token:: " + t);
                 }, function (e) {
                     console.log("Uh-Oh!\n" + e);
                 });
                 FCMPlugin.getToken(function (AndroidToken) {
                     console.log("Use this token for sending device specific messages\nToken: " + AndroidToken);
-                    alert(AndroidToken);
+//                    alert(AndroidToken);
                     FCMPlugin.subscribeToTopic('topicExample',function (SubsScribeAndroidToken) {
                     console.log("Use this token for sending device specific messages\nToken: " + AndroidToken);
-                    alert(SubsScribeAndroidToken);
+//                    alert(SubsScribeAndroidToken);
                 }, function (SubsScribeErrorInToken) {
                     console.log("Uh-Oh!\n" + SubsScribeErrorInToken);
                 });
@@ -32,10 +31,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
                 FCMPlugin.onNotification(function (data) {
                     if (data.wasTapped) {
-                        alert(JSON.stringify(data));
+//                        alert(JSON.stringify(data));
+                        $rootScope.live_update(data);
+//                        $rootScope.MessadeData=data;
 //                        $scopeJSON.stringify.datas=data;
                     } else {
-                        alert(JSON.stringify(data));
+//                        alert(JSON.stringify(data));
+                        $rootScope.live_update(data);
+//                        $rootScope.MessadeData=data;
 //                        $scope.datas=data;
                     }
                 }, function (msg) {
@@ -46,7 +49,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 });
 
             } else {
-                //alert("Not a Real Device");
+                console.log("Not a Real Device");
             }
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -89,25 +92,30 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                     }
                 }
             })
-            .state('app.playlists', {
-                url: '/playlists',
+            .state('app.messgingPage', {
+                url: '/messgingPage',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/playlists.html',
-                        controller: 'PlaylistsCtrl'
+                        templateUrl: 'templates/messgingPage.html',
+                        controller: 'messgingPageCtrl'
                     }
                 }
             })
 
-            .state('app.single', {
-                url: '/playlists/:playlistId',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/playlist.html',
-                        controller: 'PlaylistCtrl'
+            .state('introduce', {
+                url: '/introduce',
+//                views: {
+//                    'menuContent': {
+                        templateUrl: 'templates/introduce.html',
+                        controller: 'introduceCtrl'
+            , onEnter: function ($state) {
+                    if (localStorage.getItem("InstaMessageUserName")) {
+                        $state.go('app.messgingPage');
                     }
                 }
+//                    }
+//                }
             });
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/app/playlists');
+        $urlRouterProvider.otherwise('/introduce');
     });
