@@ -1,1 +1,55 @@
-/* Empty. Add your own CSS if you like */
+.datas {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+
+.datas li {
+	display:block;
+	clear:both;
+	max-width:50%;
+	margin:0 0 1rem 0;
+	padding:0;
+}
+
+.datas li:nth-child(even) {
+	float:right;
+}
+
+.datas li:nth-child(even) img {
+	float:right;
+}
+
+.datas p {
+	border-radius:.75rem;
+	background:#e6e5eb;
+	color:#383641;
+	padding:.6875rem;
+	margin:0;
+	font-size:.875rem;
+}
+
+.datas li:nth-child(even) p {
+	background:#158ffe;
+	color:#fff;
+}
+
+.datas img {
+	display:block;
+	max-width:65%;
+	border-radius:.75rem;
+}
+
+input.ng-invalid.ng-touched {
+    /*        background:#F84072;*/
+    /*    border: 1px red solid;*/
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 7, 7, 0.99);
+    /*    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);*/
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 7, 7, 0.99);
+}
+
+input:focus {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    /*    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);*/
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(16, 42, 222, 0.99);
+}

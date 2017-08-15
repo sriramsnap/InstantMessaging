@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,$ionicPopup,$ionicLoading,$ionicHistory,$state) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -39,47 +39,53 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+    
+    
+    $scope.logout=function(){
+      var confirmPopup = $ionicPopup.confirm({
+     title: 'Sure to Logout!',
+     template: 'Are you sure to Logout?'
+   });
+      
+      confirmPopup.then(function(res) {
+     if(res) {
+       console.log('You are sure');
+        $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $ionicHistory.clearHistory();
+         $ionicLoading.show({
+                        template: 'Successfully Logged Out!'
+                        , duration: 1000
+                    , });
+                $state.go("introduce");
+                localStorage.removeItem("InstaMessageUserName");
+     } else {
+       console.log('You are not sure');
+     }
+   });
+    };
 })
 
-.controller('PlaylistsCtrl', function($scope,$ionicLoading,$http,$ionicSideMenuDelegate) {
-/*$scope.$on('$ionicView.enter', function(){
-    $ionicSideMenuDelegate.canDragContent(false);
-  });*/
-/*if(window.cordova)
-    {
-         FCMPlugin.onNotification(function (data) {
-                    if (data.wasTapped) {
-                        //Notification was received on device tray and tapped by the user. 
-//                        $scope.datas=data;
-                        alert(data.message);
-                        localStorage.setItem("Message",data.message);
-                        
-                        console.log(data);
-                    } else {
-                        //Notification was received in foreground. Maybe the user needs to be notified. 
-//                        $scope.datas=data;
-                        alert(JSON.stringify(data.message));
-                        localStorage.setItem("Message",data.message);
-                        console.log(JSON.stringify(data));
-                    }
-                });
-    }*/
+.controller('messgingPageCtrl', function($scope,$ionicLoading,$http,$ionicSideMenuDelegate,$ionicScrollDelegate,$rootScope) {
+
+    $scope.Username=localStorage.getItem("InstaMessageUserName");
 var list=[];
-//$scope.datas=localStorage.getItem("Message");
 $scope.send=function(msg){
 if(msg)
     {
         console.log(msg);
         var payload_msg={
   "notification":{
-    "title":"Notification title",
-    "body":"Notification body",
+    "title":"A new Message from "+localStorage.getItem("InstaMessageUserName"),
+    "body":msg.message,
     "sound":"default",
     "click_action":"FCM_PLUGIN_ACTIVITY",
     "icon":"fcm_push_icon"
   },
   "data":{
-    "message": msg
+    "message": msg.message,
+      "sender":localStorage.getItem("InstaMessageUserName")
   },
     "to":"/topics/topicExample",
     "priority":"high",
@@ -94,16 +100,24 @@ if(msg)
                       'Authorization':'key=AIzaSyDo0nYbBoZgGm8Z6RmtggfjO8zU0Wmp_CY'
                                 }    
                                 });
+        $ionicLoading.show({
+                content: '<i class="icon ion-loading-c"></i>'
+                , animation: 'fade-in'
+                , showBackdrop: false
+                , maxWidth: 50
+                , showDelay: 0
+            });
         messge_data.success(function (response) {
-//            alert("Success");
-            list.push(msg);
-           $scope.datas=list;
+            console.log("Successfully Snet");
+            $ionicLoading.hide();     
             
         })
         messge_data.error(function (response) {
-            alert("Error");
+            alert("Error" +response);
+            $ionicLoading.hide();
             
         })
+        
     }
     else
         {
@@ -114,7 +128,49 @@ if(msg)
                 });
         }
 };
+    
+    
+    $rootScope.live_update=function(data){
+         $ionicLoading.show({
+                    template: 'Refreshing...',
+                    noBackdrop: true,
+                    duration: 1000
+                });
+                    console.log(data);
+                 var user=data.sender+' : '+data.message;
+                    console.log(user);
+            list.push(user);
+                console.log(list);
+                $scope.datas=list;
+    
+    };
+    
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('introduceCtrl', function($scope, $stateParams,$state,$ionicPopup,$ionicLoading) {
+      // Perform the login action when the user submits the login form
+  $scope.doLogin = function(loginData) {
+    console.log('Doing login', loginData);
+      var confirmPopup = $ionicPopup.confirm({
+     title: 'Sure to submit!',
+     template: 'Are you sure to save this name , as this name will be visble to everyone ?'
+   });
+      
+      confirmPopup.then(function(res) {
+     if(res) {
+       console.log('You are sure');
+         $state.go('app.messgingPage');
+                    localStorage.setItem("InstaMessageUserName", loginData.username);
+                    console.log(localStorage.getItem("InstaMessageUserName"));
+                    $ionicLoading.show({
+                        template: 'Welcome ' + localStorage.getItem("InstaMessageUserName")
+                        , duration: 1000
+                    , });
+     } else {
+       console.log('You are not sure');
+     }
+   });
+ };
+       
+
 });
