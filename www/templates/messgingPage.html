@@ -1,0 +1,22 @@
+<ion-view cache-view="false">
+    <ion-nav-title align-title="center">Instant Messaging </ion-nav-title>
+    <ion-content class="padding" start-y="120">
+
+        <ol class="datas">
+            <center>
+                <h3>Hi ,{{Username}}</h3>
+            </center>
+            <li ng-repeat="data in datas track by $index">{{data}}</li>
+        </ol>
+    </ion-content>
+
+
+    <ion-footer-bar class="item item-input-inset">
+        <label class="item-input-wrapper">
+      <input type="text" placeholder="Type a Message ..." ng-model="fcm.message">
+    </label>
+        <button class="button button-small button-positive" ng-click="send(fcm)">
+      Send&nbsp;<i class="icon icon-small stable ion-android-send"></i>
+    </button>
+    </ion-footer-bar>
+</ion-view>
